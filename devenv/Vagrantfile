@@ -38,10 +38,12 @@ Vagrant.configure('2') do |config|
   config.vm.network :forwarded_port, guest: 7051, host: 7051 # Openchain gRPC services
   config.vm.network :forwarded_port, guest: 7054, host: 7054 # Membership service
   config.vm.network :forwarded_port, guest: 7053, host: 7053 # GRPCCient gRPC services
-
+	config.vm.network :forwarded_port, guest: 3000, host: 4000 # Meteor
+	
   config.vm.synced_folder "..", "#{SRCMOUNT}"
   config.vm.synced_folder "..", "/opt/gopath/src/github.com/hyperledger/fabric"
   config.vm.synced_folder ENV.fetch('LOCALDEVDIR', ".."), "#{LOCALDEV}"
+  config.vm.synced_folder "~/git/otophoenix", "/home/vagrant/otophoenix"
 
   config.vm.provider :virtualbox do |vb|
     vb.name = "hyperledger"
@@ -83,6 +85,7 @@ Vagrant.configure('2') do |config|
     end
 
   end
-
+ 
   config.vm.provision :shell, inline: $script
+  
 end

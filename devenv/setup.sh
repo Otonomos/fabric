@@ -89,6 +89,11 @@ docker run --rm busybox echo All good
 /hyperledger/scripts/provision/host.sh
 
 # Set Go environment variables needed by other scripts
+export MONGO_URL="mongodb://10.0.2.2:27017/meteor"
+
+export CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN="pbft"
+export CORE_PEER_ADDRESSAUTODETECT="true"
+
 export GOPATH="/opt/gopath"
 export GOROOT="/opt/go/"
 PATH=$GOROOT/bin:$GOPATH/bin:$PATH
@@ -99,7 +104,13 @@ sudo chown -R vagrant:vagrant /var/hyperledger
 
 # Build the actual hyperledger peer (must be done before chown below)
 cd $GOPATH/src/github.com/hyperledger/fabric
-make clean peer gotools
+make clean membersrvc peer gotools
+
+# Build Meteor
+curl https://install.meteor.com/ | sh
+
+# Build Node Deps
+sudo npm install node-pre-gyp hfc -g
 
 # Ensure permissions are set for GOPATH
 sudo chown -R vagrant:vagrant $GOPATH
