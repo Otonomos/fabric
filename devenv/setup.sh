@@ -89,11 +89,6 @@ docker run --rm busybox echo All good
 /hyperledger/scripts/provision/host.sh
 
 # Set Go environment variables needed by other scripts
-export MONGO_URL="mongodb://10.0.2.2:27017/meteor"
-
-export CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN="pbft"
-export CORE_PEER_ADDRESSAUTODETECT="true"
-
 export GOPATH="/opt/gopath"
 export GOROOT="/opt/go/"
 PATH=$GOROOT/bin:$GOPATH/bin:$PATH
@@ -125,6 +120,9 @@ export PATH=\$PATH:/hyperledger/devenv/tools:/hyperledger/build/bin
 export VAGRANT=1
 export CGO_CFLAGS=" "
 export CGO_LDFLAGS="-lrocksdb -lstdc++ -lm -lz -lbz2 -lsnappy"
+export MONGO_URL="mongodb://10.0.2.2:27017/meteor"
+export CORE_PEER_VALIDATOR_CONSENSUS_PLUGIN="pbft"
+export CORE_PEER_ADDRESSAUTODETECT="true"
 EOF
 
 # Set our shell prompt to something less ugly than the default from packer
